@@ -1,0 +1,114 @@
+/* =========================================================
+   ANIMAÇÕES — Ótica Visão
+   Todas são desligadas em "prefers-reduced-motion" (fim do arquivo).
+   ========================================================= */
+
+/* ---------- Scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Escalonamento por data-delay="1..5" */
+.reveal[data-delay="1"] { --reveal-delay: 90ms; }
+.reveal[data-delay="2"] { --reveal-delay: 180ms; }
+.reveal[data-delay="3"] { --reveal-delay: 270ms; }
+.reveal[data-delay="4"] { --reveal-delay: 360ms; }
+.reveal[data-delay="5"] { --reveal-delay: 450ms; }
+
+/* ---------- Gradiente animado do hero e da faixa CTA ---------- */
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%, 100% 50%, 0 0; }
+  50%  { background-position: 100% 50%, 0% 50%, 0 0; }
+  100% { background-position: 0% 50%, 100% 50%, 0 0; }
+}
+.hero__bg { animation: gradientShift 18s ease-in-out infinite; }
+
+@keyframes bandShift {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+.cta-band { animation: bandShift 9s ease-in-out infinite; }
+.btn--accent { animation: bandShift 7s ease-in-out infinite; }
+
+/* ---------- Brilho passando na lente ---------- */
+@keyframes shineFade {
+  0%, 100% { opacity: 0.2; }
+  50%      { opacity: 0.85; }
+}
+.glasses-art .shine { animation: shineFade 3.4s ease-in-out infinite; }
+.glasses-art .shine:nth-of-type(2) { animation-delay: 0.5s; }
+
+/* ---------- Flutuação suave ---------- */
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-11px); }
+}
+.float-slow { animation: floatY 4.5s ease-in-out infinite; }
+.hero__frame { animation: floatY 7s ease-in-out infinite; }
+
+/* ---------- Indicador de scroll ---------- */
+@keyframes scrollWheel {
+  0%   { transform: translate(-50%, 0); opacity: 1; }
+  70%  { transform: translate(-50%, 14px); opacity: 0; }
+  100% { transform: translate(-50%, 0); opacity: 0; }
+}
+.hero__scroll-mouse::after { animation: scrollWheel 1.9s ease-in-out infinite; }
+
+@keyframes bobbing {
+  0%, 100% { transform: translate(-50%, 0); }
+  50%      { transform: translate(-50%, 8px); }
+}
+.hero__scroll { animation: bobbing 2.4s ease-in-out infinite; }
+
+/* ---------- Marquee infinito ---------- */
+@keyframes marqueeSlide {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee__track { animation: marqueeSlide 32s linear infinite; }
+.marquee:hover .marquee__track { animation-play-state: paused; }
+
+/* ---------- Pulso do botão de WhatsApp ---------- */
+@keyframes pulseRing {
+  0%   { transform: scale(1);   opacity: 0.55; }
+  70%  { transform: scale(1.75); opacity: 0; }
+  100% { transform: scale(1.75); opacity: 0; }
+}
+.whatsapp__pulse { animation: pulseRing 2.3s ease-out infinite; }
+
+/* ---------- Entrada do modal ---------- */
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.modal__box { animation: modalIn 380ms var(--ease-out) both; }
+.modal__backdrop { animation: fadeIn 260ms ease both; }
+
+/* ---------- Troca de cards ao filtrar ---------- */
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(18px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+.card { animation: cardIn 460ms var(--ease-out) both; }
+.card.is-leaving { opacity: 0; transform: scale(0.95); }
+
+/* Tilt 3D controlado por JS (assets/js/animations.js) */
+.card.is-tilting { transition: transform 90ms linear, border-color var(--t-base), box-shadow var(--t-base); }
+
+/* ---------- Acessibilidade: reduzir movimento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .card { animation: none !important; }
+}
